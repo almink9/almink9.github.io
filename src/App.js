@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Post from './components/Post';
+import { db } from './firebase';
+
 
 function App() {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    db.collection('posts').onSnapshot(snapshot => {
+      // runs every time a new post is added
+      setPosts(snapshot.docs.map(doc => doc.data()));
+    })
+  }, []);
+
   return (
     <div className="app">
       <div className='app__header'>
@@ -13,9 +24,12 @@ function App() {
         />
       </div>
       <h1>Hello</h1>
-      <Post username='AlminK' caption='This is a caption' imageUrl='https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png' />
-      <Post username='MirzaK' caption='Comment 2' imageUrl='https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png' />
-      <Post username='TarikS' caption='Comment 3' imageUrl='https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png' />
+
+      {
+        posts.map((post, i) => (
+          <Post key={i} username={post.username} imageUrl={post.imageUrl} caption={post.caption} />
+        ))
+      }
     </div>
   );
 }
