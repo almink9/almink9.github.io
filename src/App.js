@@ -43,6 +43,7 @@ function App() {
   const [posts, setPosts] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [openSignIn, setOpenSignIn] = useState(false);
+  const [openSignUp, setOpenSignUp] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [username, setUsername] = useState('');
@@ -52,7 +53,7 @@ function App() {
   
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
-      if (auth) {
+      if (authUser) {
         // user has logged in...
         console.log(authUser);
         setUser(authUser);
@@ -88,7 +89,7 @@ function App() {
     })
     .catch((error) => alert(error.message));
 
-    setOpen(false);
+    setOpenSignUp(false);
   }
 
   const signIn = (event) => {
@@ -101,9 +102,41 @@ function App() {
 
   return (
     <div className="app">
+
+      <Modal 
+      open={openSignIn}
+      onClose={() => setOpenSignIn(false)}
+      >
+      <Box sx={style}>
+        <form className="app__signin">
+          <center>
+            <img 
+              className='app__headerImage'
+              src='https://www.instagram.com/static/images/web/logged_out_wordmark.png/7a252de00b20.png'
+              alt=''
+            />
+          </center>
+          <Input 
+            placeholder="email"
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input 
+            placeholder="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button type="submit" onClick={signIn}>Sign In</Button>
+        </form>
+      </Box>
+      </Modal>
+
+
       <Modal
-        open={openSignIn}
-        onClose={() => setOpenSignIn(false)}
+        open={openSignUp}
+        onClose={() => setOpenSignUp(false)}
       >
         <Box sx={style}>
           <form className="app__signup">
@@ -122,7 +155,7 @@ function App() {
             />
             <Input 
               placeholder="email"
-              type="text"
+              type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -132,7 +165,7 @@ function App() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button type="submit" onClick={signIn}>Sign In</Button>
+            <Button type="submit" onClick={signUp}>Sign Up</Button>
           </form>
         </Box>
       </Modal>
@@ -149,7 +182,7 @@ function App() {
       ): (
         <div className='app__loginContainer'>
           <Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
-          <Button onClick={handleOpen}>Sign Up</Button>
+          <Button onClick={() => setOpenSignUp(true)}>Sign Up</Button>
         </div>
       )}
 
