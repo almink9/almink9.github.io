@@ -3,10 +3,11 @@ import './App.css';
 import Post from './components/Post';
 import { auth, db } from './firebase';
 import { Modal, Box, Button, Input } from '@mui/material';
+import ImageUpload from './components/ImageUpload';
 
 // function getModalStyle() {
-//   const top = 50 + rand();
-//   const left = 50 + rand();
+//   const top = 50;
+//   const left = 50;
 
 //   return {
 //     top: `${top}%`,
@@ -102,7 +103,12 @@ function App() {
 
   return (
     <div className="app">
-
+      {user?.displayName ? (
+        <ImageUpload username={user.displayName} />
+      ): (
+        <h3>You need to log in to upload</h3>
+      )} 
+      {/* <ImageUpload username={user.displayName} /> */}
       <Modal 
       open={openSignIn}
       onClose={() => setOpenSignIn(false)}
@@ -118,7 +124,7 @@ function App() {
           </center>
           <Input 
             placeholder="email"
-            type="text"
+            type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -187,7 +193,7 @@ function App() {
       )}
 
       
-      <h1>Hello</h1>
+      {/* <h1>Hello</h1> */}
 
 
       {
