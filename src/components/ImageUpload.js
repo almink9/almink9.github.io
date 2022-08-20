@@ -43,10 +43,10 @@ function ImageUpload({username}) {
           .then(url => {
             // post image inside db
             db.collection('posts').add({
-              // timestamp: firebase.firestore.FieldValue.serverTimeStamp(),
               caption: caption,
               imageUrl: url,
-              username: username
+              username: username,
+              // timestamp: firebase.firestore.FieldValue.serverTimeStamp()
             });
             setProgress(0);
             setCaption("");
