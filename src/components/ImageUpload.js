@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
+import './ImageUpload.css';
 import { Button } from '@mui/material';
-import firebase from 'firebase/compat/app';
+// import firebase from 'firebase/compat/app';
 import { storage, db } from '../firebase';
+
 
 function ImageUpload({username}) {
   const [caption, setCaption] = useState('');
   const [image, setImage] = useState(null);
   // const [url, setUrl] = useState('');
   const [progress, setProgress] = useState(0);
+
 
   const handleChange = (e) => {
     if (e.target.files[0]) {
@@ -40,13 +43,13 @@ function ImageUpload({username}) {
           .then(url => {
             // post image inside db
             db.collection('posts').add({
-              timestamp: firebase.firestore.FieldValue.serverTimeStamp(),
+              // timestamp: firebase.firestore.FieldValue.serverTimeStamp(),
               caption: caption,
               imageUrl: url,
               username: username
             });
             setProgress(0);
-            setCaption('');
+            setCaption("");
             setImage(null);
           });
       }
@@ -54,7 +57,7 @@ function ImageUpload({username}) {
   };
 
   return (
-    <div>
+    <div className='upload__container'>
       <progress value={progress} max='100' />
       {/* Caption Input */}
       <input type="text" placeholder='Enter a caption...' onChange={event => setCaption(event.target.value)} value={caption} />

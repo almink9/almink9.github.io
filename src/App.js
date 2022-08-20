@@ -42,11 +42,11 @@ const style = {
 function App() {
   // const classes = useStyles();
   const [posts, setPosts] = useState([]);
-  const [open, setOpen] = React.useState(false);
+  // const [open, setOpen] = React.useState(false);
   const [openSignIn, setOpenSignIn] = useState(false);
   const [openSignUp, setOpenSignUp] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  // const handleOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -56,8 +56,8 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         // user has logged in...
-        console.log(authUser);
         setUser(authUser);
+        console.log(authUser.displayName);
       } else {
         // user hsa logged out...
         setUser(null);
@@ -79,6 +79,8 @@ function App() {
     })
   }, []);
 
+
+
   const signUp = (event) => {
     event.preventDefault();
     auth
@@ -87,6 +89,10 @@ function App() {
       return authUser.user.updateProfile({
         displayName: username
       })
+    })
+    .then(function() {
+      // after sign up
+      window.location.reload();
     })
     .catch((error) => alert(error.message));
 
@@ -103,11 +109,7 @@ function App() {
 
   return (
     <div className="app">
-      {user?.displayName ? (
-        <ImageUpload username={user.displayName} />
-      ): (
-        <h3>You need to log in to upload</h3>
-      )} 
+      
       {/* <ImageUpload username={user.displayName} /> */}
       <Modal 
       open={openSignIn}
@@ -141,6 +143,7 @@ function App() {
 
 
       <Modal
+        
         open={openSignUp}
         onClose={() => setOpenSignUp(false)}
       >
@@ -181,17 +184,21 @@ function App() {
           src='https://www.instagram.com/static/images/web/logged_out_wordmark.png/7a252de00b20.png'
           alt=''
         />
+        {user ? (
+          <Button onClick={() => auth.signOut()}>Logout</Button>  
+        ): (
+          <div className='app__loginContainer'>
+            <Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
+            <Button onClick={() => setOpenSignUp(true)}>Sign Up</Button>
+          </div>
+        )}
       </div>
 
       {user ? (
-        <Button onClick={() => auth.signOut()}>Logout</Button>  
-      ): (
-        <div className='app__loginContainer'>
-          <Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
-          <Button onClick={() => setOpenSignUp(true)}>Sign Up</Button>
-        </div>
-      )}
-
+          <ImageUpload username={user.displayName} />
+        ): (
+          <h3>You need to log in to upload</h3>
+        )} 
       
       {/* <h1>Hello</h1> */}
 

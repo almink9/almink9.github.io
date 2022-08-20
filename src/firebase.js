@@ -3,6 +3,8 @@ import 'firebase/firestore';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
 import 'firebase/compat/storage';
+import 'firebase/storage';
+
 
 const firebaseApp = firebase.initializeApp({
     apiKey: "AIzaSyAKZfmhhb0bSdqHntlEPhvfgngU1gtj7Gw",
