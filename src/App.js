@@ -185,7 +185,7 @@ function App() {
           alt=''
         />
         {user ? (
-          <Button onClick={() => auth.signOut()}>Logout</Button>  
+          <Button className='app__logout' onClick={() => auth.signOut()}>Logout</Button>  
         ): (
           <div className='app__loginContainer'>
             <Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
@@ -200,14 +200,14 @@ function App() {
           <h3>You need to log in to upload</h3>
         )} 
       
-      {/* <h1>Hello</h1> */}
+      <div className='app__posts'>
+        {
+          posts.map(({post, id}) => (
+            <Post key={id} postId={id} user={user} username={post.username} imageUrl={post.imageUrl} caption={post.caption} />
+          ))
+        }
+      </div>
 
-
-      {
-        posts.map(({post, id}) => (
-          <Post key={id} username={post.username} imageUrl={post.imageUrl} caption={post.caption} />
-        ))
-      }
     </div>
   );
 }
