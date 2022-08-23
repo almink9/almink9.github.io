@@ -199,7 +199,7 @@ function App() {
         {user ? (
           <ImageUpload username={user.displayName} />
         ): (
-          <h3>You need to log in to upload</h3>
+          <h3 className='requirement__login'>You need to log in to upload</h3>
         )} 
         {
           posts.map(({post, id}) => (
