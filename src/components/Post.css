@@ -53,3 +53,22 @@
   color: #6082a3;
   background-color: transparent;
 }
+
+.post__caption {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-top: 10px;
+  border: 1px solid lightgray;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.post__likeButton {
+  height: max-content;
+}

@@ -8,6 +8,7 @@ import { db } from '../firebase';
 function Post({ postId, user, username, caption, imageUrl }) {
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState('');
+  const [likes, setLikes] = useState(0);
 
   useEffect(() => {
     let unsubscribe;
@@ -26,6 +27,10 @@ function Post({ postId, user, username, caption, imageUrl }) {
       unsubscribe();
     }; 
   }, [postId]);
+
+  const buttonClicked = () => {
+    setLikes(likes+1);
+  }
 
   const postComment = (event) => {
     event.preventDefault();
@@ -48,6 +53,13 @@ function Post({ postId, user, username, caption, imageUrl }) {
         <h3>{username}</h3>
       </div>
       <img className='post__image' src={imageUrl} alt='' />
+
+      <div className='post__caption'>
+        <h4> Likes: {likes} </h4>
+        <button className='post__likeButton' onClick={buttonClicked}>
+          LIKE
+        </button>
+      </div>
       <h4 className='post__text'><strong>{username} </strong>{caption}</h4>
 
       <div className='post__comments'>
@@ -76,6 +88,7 @@ function Post({ postId, user, username, caption, imageUrl }) {
             Post
           </button>
         </form>
+        
 
       )}
 
