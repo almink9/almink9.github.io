@@ -18,6 +18,14 @@
   border-bottom: 1px solid lightgray;
 }
 
+.requirement__login {
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 .app__headerImage {
   object-fit: contain;
 }
