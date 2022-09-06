@@ -9,6 +9,7 @@ function Post({ postId, user, username, caption, imageUrl }) {
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState('');
   const [likes, setLikes] = useState(0);
+  const [isClicked, setIsClicked] = useState(false);
 
   useEffect(() => {
     let unsubscribe;
@@ -28,10 +29,6 @@ function Post({ postId, user, username, caption, imageUrl }) {
     }; 
   }, [postId]);
 
-  const buttonClicked = () => {
-    setLikes(likes+1);
-  }
-
   const postComment = (event) => {
     event.preventDefault();
     db.collection("posts").doc(postId).collection("comments").add({
@@ -40,6 +37,14 @@ function Post({ postId, user, username, caption, imageUrl }) {
       timestamp: firebase.firestore.FieldValue.serverTimestamp()
     });
     setComment('');
+  }
+
+  const handleClick = () => {
+    if (isClicked) {
+      setLikes(likes - 1);
+    }
+    else setLikes(likes + 1);
+    setIsClicked(!isClicked);
   }
 
   return (
@@ -56,7 +61,7 @@ function Post({ postId, user, username, caption, imageUrl }) {
 
       <div className='post__caption'>
         <h4> Likes: {likes} </h4>
-        <button className='post__likeButton' onClick={buttonClicked}>
+        <button className={`post__likeButton ${isClicked && 'liked'}`} onClick={handleClick}>
           LIKE
         </button>
       </div>
