@@ -5,28 +5,6 @@ import { auth, db } from './firebase';
 import { Modal, Box, Button, Input } from '@mui/material';
 import ImageUpload from './components/ImageUpload';
 
-// function getModalStyle() {
-//   const top = 50;
-//   const left = 50;
-
-//   return {
-//     top: `${top}%`,
-//     left: `${left}%`,
-//     transform: `translate(-${top}%, -${left}%)`,
-//   };
-// }
-
-// const useStyles = makeStyles((theme) => ({
-//   paper: {
-//     position: 'absolute',
-//     width: 400,
-//     backgroundColor: theme.palette.background.paper,
-//     border: '2px solid #000',
-//     boxShadow: theme.shadows[5],
-//     padding: theme.spacing(2, 4, 3),
-//   },
-// }));
-
 const style = {
   position: 'absolute',
   top: '50%',
@@ -178,6 +156,7 @@ function App() {
           </form>
         </Box>
       </Modal>
+
       <div className='app__header'>
         <img 
           className='app__headerImage'

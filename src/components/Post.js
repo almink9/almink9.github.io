@@ -61,7 +61,7 @@ function Post({ postId, user, username, caption, imageUrl }) {
 
       <div className='post__caption'>
         <h4> Likes: {likes} </h4>
-        <button className={`post__likeButton ${isClicked && 'liked'}`} onClick={handleClick}>
+        <button disabled={!user} className={`post__likeButton ${isClicked && 'liked'}`} onClick={handleClick}>
           LIKE
         </button>
       </div>
@@ -93,8 +93,6 @@ function Post({ postId, user, username, caption, imageUrl }) {
             Post
           </button>
         </form>
-        
-
       )}
 
     </div>
