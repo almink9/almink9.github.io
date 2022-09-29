@@ -7,19 +7,32 @@
   margin-right: auto;
   margin-top: 10px;
   margin-bottom: 10px;
+  padding-bottom: 20px;
   background-color: white;
-  border-bottom: 1px solid lightgray;
+  /* border-bottom: 1px solid lightgray;
   border-left: 1px solid lightgray;
   border-right: 1px solid lightgray;
-  border-top: 1px solid lightgray;
+  border-top: 1px solid lightgray; */
+  border: 1px solid lightgray;
+  border-radius: 10px;
+}
+
+.upload__container:hover {
+  border: 1px solid rgb(153, 153, 153);
 }
 
 .upload__progress {
-  width: 100%;
+  /* margin-right: 50px; */
+  display: flex; 
+  justify-content:space-around;  
+  align-items: center;
+  
 }
 
 .upload__caption {
   margin-top: 10px;
   margin-bottom: 10px;
   height: 5vh;
+  margin-left:10px;
+  margin-right: 10px;
 }

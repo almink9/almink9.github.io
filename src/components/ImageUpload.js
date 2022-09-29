@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './ImageUpload.css';
-import { Button } from '@mui/material';
+import { Button, InputBase, LinearProgress, Typography } from '@mui/material';
 // import firebase from 'firebase/compat/app';
 import { storage, db } from '../firebase';
 
@@ -46,6 +46,7 @@ function ImageUpload({username}) {
               caption: caption,
               imageUrl: url,
               username: username,
+              likeCounter: 0,
               // timestamp: firebase.firestore.FieldValue.serverTimeStamp()
             });
             setProgress(0);
@@ -58,15 +59,36 @@ function ImageUpload({username}) {
 
   return (
     <div className='upload__container'>
-      <progress className='upload__progress' value={progress} max='100' />
+      {/* <progress className='upload__progress' value={progress} max='100' /> */}
+      <div className='upload__progress'>
+        <LinearProgress variant="determinate" value={progress} max='100' 
+        sx={{
+          height: '7px',
+          width: '90%',
+        }}/>
+        <Typography variant='body2' color='textSecondary'>
+        {`${Math.round(
+          // props.value
+          progress
+        )}%`}
+        </Typography>
+      </div>
       {/* Caption Input */}
       <input className='upload__caption' type="text" placeholder='Enter a caption...' onChange={event => setCaption(event.target.value)} value={caption} />
       {/* File Picker */}
-      <input type="file" onChange={handleChange} />
+      <InputBase type="file" onChange={handleChange} />
       {/* Post Button */}
-      <Button className="imageupload__button" onClick={handleUpload}>
-        Upload
+      <Button variant='contained' color='primary' component='label' className='imageupload__button' onClick={handleUpload}
+      sx={{
+        width: '98%',
+        marginLeft: "auto",
+        marginRight: "auto",
+      }}>
+        UPLOAD
       </Button>
+      {/* <Button className="imageupload__button" onClick={handleUpload}>
+        Upload
+      </Button> */}
     </div>
   )
 }

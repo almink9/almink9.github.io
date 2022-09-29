@@ -5,7 +5,12 @@
   background-color: white;
   max-width: 700px;
   border: 1px solid lightgray;
+  border-radius: 2%;
   margin-bottom: 45px;
+}
+
+.post:hover {
+  border: 1px solid rgb(153, 153, 153);
 }
 
 .post__image {
@@ -22,7 +27,7 @@
 
 .post__header {
   display: flex;
-  align-items: center;
+  align-items: center; 
   padding: 20px;
 }
 
@@ -33,34 +38,39 @@
 .post__commentBox {
   display: flex;
   margin-top: 10px;
+  border-top: 1px solid lightgray;
 }
 
 .post__comments {
   padding: 20px;
+  border-top: 1px dotted lightgray;
 }
 
 .post__input {
   flex: 1;
   border: none;
   padding: 10px;
-  border-top: 1px solid lightgray;
+  margin-bottom: 10px;
 }
 
 .post__button {
   flex: 0;
   border: none;
-  border-top: 1px solid lightgray;
   color: #6082a3;
+  padding: 10px;
+  margin-bottom: 10px;
   background-color: transparent;
 }
 
 .post__caption {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   padding-left: 5px;
   padding-right: 5px;
   margin-top: 10px;
   border: 1px solid lightgray;
+  border-radius: 10px;
   padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 10px;
@@ -71,4 +81,5 @@
 
 .post__likeButton {
   height: max-content;
+  flex: 0;
 }

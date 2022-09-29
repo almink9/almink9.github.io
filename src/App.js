@@ -85,6 +85,14 @@ function App() {
     setOpenSignIn(false);
   }
 
+  const moveToTop = () => {
+    document.documentElement.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+    
+  }
+
   return (
     <div className="app">
       
@@ -162,13 +170,14 @@ function App() {
           className='app__headerImage'
           src='https://www.instagram.com/static/images/web/logged_out_wordmark.png/7a252de00b20.png'
           alt=''
+          onClick={moveToTop}
         />
         {user ? (
-          <Button className='app__logout' onClick={() => auth.signOut()}>Logout</Button>  
+          <Button variant='contained' className='app__logout' onClick={() => auth.signOut()}>Logout</Button>  
         ): (
           <div className='app__loginContainer'>
-            <Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
-            <Button onClick={() => setOpenSignUp(true)}>Sign Up</Button>
+            <Button variant='outlined' onClick={() => setOpenSignIn(true)}>Sign In</Button>
+            <Button variant='outlined' onClick={() => setOpenSignUp(true)}>Sign Up</Button>
           </div>
         )}
       </div>
@@ -182,7 +191,7 @@ function App() {
         )} 
         {
           posts.map(({post, id}) => (
-            <Post key={id} postId={id} user={user} username={post.username} imageUrl={post.imageUrl} caption={post.caption} />
+            <Post key={id} postId={id} user={user} username={post.username} imageUrl={post.imageUrl} caption={post.caption} likeCounter={post.likeCounter} />
           ))
         }
       </div>
