@@ -56,3 +56,16 @@
 .app__posts {
   padding: 20px;
 }
+
+.user__info {
+	display: flex;
+}
+
+.user__avatar {
+	margin: 5px;
+	cursor: pointer;
+}
+
+a {
+	text-decoration: none;
+}
