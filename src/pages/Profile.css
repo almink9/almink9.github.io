@@ -66,4 +66,7 @@ h3 {
 	object-fit: cover;
 	height: 200px;
 	width: 300px;
+	margin: 10px;
+	border: 1px solid black;
+	border-radius: 20px;
 }

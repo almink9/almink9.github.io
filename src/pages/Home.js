@@ -20,37 +20,42 @@ const style = {
 
 
 function Home() {
-  // const classes = useStyles();
-  const [posts, setPosts] = useState([]);
+	  // const classes = useStyles();
+	const [posts, setPosts] = useState([]);
   // const [open, setOpen] = React.useState(false);
   const [openSignIn, setOpenSignIn] = useState(false);
   const [openSignUp, setOpenSignUp] = useState(false);
   // const handleOpen = () => setOpen(true);
-  // const handleClose = () => setOpen(false);
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+	// const handleClose = () => setOpen(false);
+	const [username, setUsername] = useState('');
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
-  
-
+	const [profileLink, setProfileLink] = useState('');
+	  
+	
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
         // user has logged in...
         setUser(authUser);
+				// setUsername(authUser.displayName);
+				setProfileLink(`/profile/${authUser.displayName}`);
         console.log(authUser.displayName);
       } else {
-        // user hsa logged out...
+        // user has logged out...
         setUser(null);
 				;
       }
     })
+
     return () => {
       // perform some cleanup actions
       unsubscribe();
     }
   }, [user, username]);
 
+	
   useEffect(() => {
     db.collection('posts').onSnapshot(snapshot => {
       // runs every time a new post is added
@@ -94,7 +99,6 @@ function Home() {
     });
     
   }
-
 
   return (
 		<div className="app">
@@ -176,7 +180,7 @@ function Home() {
 				/>
 				{user ? (
 					<div className='user__info'>
-						<Link to='/profile'>
+						<Link to={profileLink}>
 							<Avatar
 								className='user__avatar'
 								alt={user.displayName}
