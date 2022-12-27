@@ -5,37 +5,37 @@ import { Modal, Box, Button, Input, Avatar } from '@mui/material';
 import { Link, useParams } from 'react-router-dom';
 import Post from '../components/Post';
 
-// function Profile({postId, user, username, imageUrl}) {
 function Profile() {
 	const [posts, setPosts] = useState([]);
-	const [openPost, setOpenPost] = useState(false);
-	// const [username, setUsername] = useState('');
-	// const [email, setEmail] = useState('');
-	// const [password, usePassword] = useState('');
-	// const [user, setUser] = useState(null);
+	const [likeCounter, setLikeCounter] = useState(0);
+	const [comments, setComments] = useState(0);
 
 	const params = useParams();
 	console.log("username profile: ", params.username);
-
 	const username = params.username;
-
-  useEffect(() => {
+	
+  useEffect(() => {	
+		let userPosts;
     db.collection('posts').onSnapshot(snapshot => {
       // runs every time a new post is added
-      setPosts(snapshot.docs.map(doc => ({
+      userPosts = snapshot.docs.map(doc => ({
         id: doc.id,
         post: doc.data()
       })
-			
-		).filter((o) => {
-			return (o.post.username === username)
-			
-		}));
+			).filter((o) => {
+				return (o.post.username === username)
+			});	
+			setPosts(userPosts);
+			let temp = 0;
+			userPosts.forEach(p => {
+				temp += p.post.likeCounter;
+			});
+			setLikeCounter(temp);
     })
   }, []);
 
 
-	const handleClick = (event) => {
+	const handleClick = () => {
 	}
 
 	return (
@@ -60,7 +60,7 @@ function Profile() {
 					<div>
 						<Avatar 
 							className='profile__avatar'
-							alt='Almin Krbezlija'
+							alt={username}
 							src='static/images/avatar/1.jpg'
 						/>
 					</div>
@@ -73,11 +73,11 @@ function Profile() {
 					</div>
 					<div className='follower__stats'>
 						<h3>Likes</h3>
-						<h4>0</h4>
+						<h4>{likeCounter}</h4>
 					</div>
 					<div className='following__stats'>
 						<h3>Comments</h3>
-						<h4>0</h4>
+						<h4>{comments}</h4>
 					</div>
 				</div>
 			</div>
@@ -97,8 +97,6 @@ function Profile() {
 								alt=''
 							/>
 						</Button>
-
-						// <Box key={id} />
 					))
 				}
 			</div>
