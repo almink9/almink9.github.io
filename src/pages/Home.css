@@ -1,9 +1,15 @@
 * {
   margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
 }
 
 .app {
-  background-color: #fafafa;
+background: radial-gradient(63.94% 63.94% at 50% 0%, rgba(255, 255, 255, 0.12) 0%, rgb(204, 204, 204) 100%), rgb(255, 248, 248);
 }
 
 .app__header {
@@ -18,8 +24,17 @@
   border-bottom: 1px solid lightgray;
 }
 
+.requirement__login {
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 .app__headerImage {
   object-fit: contain;
+  cursor: pointer;
 }
 
 .app__signup {
@@ -37,13 +52,26 @@
 .app__loginContainer {
   background-color: white;
   cursor: pointer;
-  border-bottom: 1px solid lightgray;
+  /* border-bottom: 1px solid lightgray;
   border-left: 1px solid lightgray;
   border-right: 1px solid lightgray;
-  border-top: 1px solid lightgray;
+  border-top: 1px solid lightgray; */
   display: flex;
 }
 
 .app__posts {
   padding: 20px;
+}
+
+.user__info {
+	display: flex;
+}
+
+.user__avatar {
+	margin: 5px;
+	cursor: pointer;
+}
+
+a {
+	text-decoration: none;
 }
