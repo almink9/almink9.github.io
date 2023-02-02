@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import './ImageUpload.css';
 import { Button, InputBase, LinearProgress, Typography } from '@mui/material';
-// import firebase from 'firebase/compat/app';
 import { storage, db } from '../firebase';
 
 
 function ImageUpload({username}) {
   const [caption, setCaption] = useState('');
   const [image, setImage] = useState(null);
-  // const [url, setUrl] = useState('');
   const [progress, setProgress] = useState(0);
 
 
@@ -35,7 +33,7 @@ function ImageUpload({username}) {
         alert(error.message);
       },
       () => {
-        // complete function...
+        // TODO: complete function...
         storage
           .ref("images")
           .child(image.name)
@@ -86,9 +84,6 @@ function ImageUpload({username}) {
       }}>
         UPLOAD
       </Button>
-      {/* <Button className="imageupload__button" onClick={handleUpload}>
-        Upload
-      </Button> */}
     </div>
   )
 }

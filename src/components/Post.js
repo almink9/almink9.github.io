@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './Post.css';
-// import firebase from 'firebase';
 import firebase from 'firebase/compat/app';
 import { Avatar, Button } from '@mui/material';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';

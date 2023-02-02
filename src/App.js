@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import EditProfile from './pages/EditProfile';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 
@@ -10,6 +11,7 @@ function App() {
 			<Routes>
 				<Route path='/' element={<Home />} />
 				<Route path='/profile/:username' element={<Profile />} />
+				<Route path='/profile/:username/editprofile' element={<EditProfile />} />
 			</Routes>
 		</BrowserRouter>
   );
