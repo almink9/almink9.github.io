@@ -10,7 +10,6 @@ function Profile() {
   const [likeCounter, setLikeCounter] = useState(0);
   const [comments] = useState(0);
   const [viewPost, setViewPost] = useState(false);
-  const [captionName, setCaptionName] = useState("");
 
   const params = useParams();
   console.log("username profile: ", params.username);
@@ -36,6 +35,10 @@ function Profile() {
       setLikeCounter(temp);
     });
   }, [username]);
+
+  const handleClick = (id) => {
+    setViewPost(true);
+  };
 
   return (
     <div className="app">
@@ -86,16 +89,13 @@ function Profile() {
             <img
               className="posts__images"
               src={post.imageUrl}
-              onClick={() => setViewPost(true)}
+              onClick={() => {
+                handleClick(id);
+              }}
               alt=""
             />
             <Modal open={viewPost} onClose={() => setViewPost(false)}>
-              <PostModal
-                open={viewPost}
-                onClose={() => setViewPost(false)}
-                id={id}
-                post={post}
-              />
+              <PostModal onClose={() => setViewPost(false)} post={post} />
             </Modal>
           </Button>
         ))}

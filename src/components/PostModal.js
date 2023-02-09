@@ -3,7 +3,7 @@ import { auth, db } from "../firebase";
 import { Close } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 
-function PostModal({ open, onClose, id, post }) {
+function PostModal({ onClose, post }) {
   const handleClose = () => {
     onClose();
   };
@@ -50,7 +50,7 @@ function PostModal({ open, onClose, id, post }) {
           <img
             // src="https://imgs.search.brave.com/vGLkOkmEQWBoQGAECMDK5ce11D8MweoLr7sKGUZ90z8/rs:fit:640:554:1/g:ce/aHR0cDovL2Zhcm0z/LnN0YXRpY2ZsaWNr/ci5jb20vMjA5OC8y/MjA0NzQ2MTc5X2Yx/Y2FjMmVmNWZfei5q/cGc"
             src={post.imageUrl}
-            style={{ height: "100%", width: "550px", float: "left" }}
+            style={{ height: "100%", width: "1000px", float: "left" }}
             alt=""
           />
         </Box>
