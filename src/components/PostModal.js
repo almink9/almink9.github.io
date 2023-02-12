@@ -3,10 +3,11 @@ import { auth, db } from "../firebase";
 import { Close } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 
-function PostModal({ onClose, post }) {
+function PostModal({ onClose, post, id }) {
   const handleClose = () => {
     onClose();
   };
+  console.log("clicked image id: ", id);
   return (
     <Box
       sx={{

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Profile.css";
 import { db } from "../firebase";
-import { Button, Avatar, Modal, Box } from "@mui/material";
+import { Button, Avatar, Modal } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import PostModal from "../components/PostModal";
 
@@ -36,8 +36,13 @@ function Profile() {
     });
   }, [username]);
 
-  const handleClick = (id) => {
+  const handleClick = (post, id) => {
     setViewPost(true);
+    return (
+      <Modal open={viewPost} onClose={() => setViewPost(false)}>
+        <PostModal onClose={() => setViewPost(false)} post={post} id={id} />
+      </Modal>
+    );
   };
 
   return (
@@ -80,7 +85,9 @@ function Profile() {
           </div>
         </div>
       </div>
-      <Button variant="outlined">Edit profile</Button>
+      <Button variant="outlined">
+        <Link to="/profile/:username/editprofile">Edit profile</Link>
+      </Button>
 
       <div className="profile__posts">
         {posts.map(({ post, id }) => (
@@ -90,13 +97,10 @@ function Profile() {
               className="posts__images"
               src={post.imageUrl}
               onClick={() => {
-                handleClick(id);
+                handleClick(post, id);
               }}
               alt=""
             />
-            <Modal open={viewPost} onClose={() => setViewPost(false)}>
-              <PostModal onClose={() => setViewPost(false)} post={post} />
-            </Modal>
           </Button>
         ))}
       </div>
