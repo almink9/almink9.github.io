@@ -74,7 +74,7 @@ function ImageUpload({username}) {
       {/* Caption Input */}
       <input className='upload__caption' type="text" placeholder='Enter a caption...' onChange={event => setCaption(event.target.value)} value={caption} />
       {/* File Picker */}
-      <InputBase type="file" onChange={handleChange} />
+      <InputBase type="file" onChange={handleChange} className='filePicker' />
       {/* Post Button */}
       <Button variant='contained' color='primary' component='label' className='imageupload__button' onClick={handleUpload}
       sx={{

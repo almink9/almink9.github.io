@@ -10,7 +10,7 @@
   padding-bottom: 20px;
   background-color: white;
   border: 1px solid lightgray;
-  border-radius: 10px;
+  border-radius: 2px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
 }
 
@@ -30,6 +30,8 @@
 .upload__caption {
   margin-top: 10px;
   margin-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
 	height: 32px;
 	font-size: 1em;
   margin-left:10px;
@@ -38,3 +40,7 @@
   border: 1px solid rgb(153, 153, 153);
 }
 
+.filePicker {
+  margin-left: 10px;
+  margin-right: 10px;
+}

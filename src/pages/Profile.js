@@ -3,21 +3,22 @@ import "./Profile.css";
 import { db } from "../firebase";
 import { Button, Avatar, Modal } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
-import PostModal from "../components/PostModal";
+import Post from "../components/Post";
 
 function Profile() {
   const [posts, setPosts] = useState([]);
   const [likeCounter, setLikeCounter] = useState(0);
-  const [comments] = useState(0);
+  const [comments, setComments] = useState(0);
   const [viewPost, setViewPost] = useState(false);
+  const [selectedPost, setSelectedPost] = useState(null);
+  const [selectedPostId, setSelectedPostId] = useState(null);
 
   const params = useParams();
-  console.log("username profile: ", params.username);
   const username = params.username;
 
   useEffect(() => {
     let userPosts;
-    db.collection("posts").onSnapshot((snapshot) => {
+    db.collection("posts").onSnapshot(async (snapshot) => {
       // runs every time a new post is added
       userPosts = snapshot.docs
         .map((doc) => ({
@@ -28,21 +29,34 @@ function Profile() {
           return o.post.username === username;
         });
       setPosts(userPosts);
+      console.log("userPosts: ", userPosts);
       let temp = 0;
       userPosts.forEach((p) => {
         temp += p.post.likeCounter;
       });
       setLikeCounter(temp);
+
+      // Comments counter
+      let tempComments = 0;
+      await Promise.all(
+        userPosts.map(async (p) => {
+          const commentsSnapshot = await db
+            .collection("posts")
+            .doc(p.id)
+            .collection("comments")
+            .get();
+          tempComments += commentsSnapshot.size;
+        })
+      );
+      setComments(tempComments);
+      console.log("Total comments: ", tempComments);
     });
   }, [username]);
 
   const handleClick = (post, id) => {
+    setSelectedPost(post);
+    setSelectedPostId(id);
     setViewPost(true);
-    return (
-      <Modal open={viewPost} onClose={() => setViewPost(false)}>
-        <PostModal onClose={() => setViewPost(false)} post={post} id={id} />
-      </Modal>
-    );
   };
 
   return (
@@ -104,6 +118,35 @@ function Profile() {
           </Button>
         ))}
       </div>
+
+      <Modal open={viewPost} onClose={() => setViewPost(false)}>
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "rgba(0, 0, 0, 0.5)",
+            zIndex: 1300,
+            overflowY: "auto",
+          }}
+        >
+          {selectedPost && (
+            <Post
+              postId={selectedPostId}
+              user={{ displayName: username }}
+              username={selectedPost.username}
+              caption={selectedPost.caption}
+              likeCounter={selectedPost.likeCounter}
+              imageUrl={selectedPost.imageUrl}
+            />
+          )}
+        </div>
+      </Modal>
     </div>
   );
 }

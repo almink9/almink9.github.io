@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { styled } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import "./Home.css";
 import Post from "../components/Post";
 import { auth, db } from "../firebase";
-import { Modal, Box, Button, Input, Avatar } from "@mui/material";
+import { Modal, Box, Button, Input, Avatar, createTheme } from "@mui/material";
 import ImageUpload from "../components/ImageUpload";
-import { AnimationOnScroll } from "react-animation-on-scroll";
-import "animate.css/animate.min.css";
+// import { AnimationOnScroll } from "react-animation-on-scroll";
+// import "animate.css/animate.min.css";
 
 const style = {
   position: "absolute",
@@ -19,6 +20,34 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+
+const CustomButton = styled(Button)(({ theme, customProp }) => ({
+  backgroundColor: customProp ? "blue" : "gray",
+  border: "1px solid #212121",
+  borderRadius: "0px",
+  margin: "0 5px",
+  color: "white",
+  fontWeight: "bold",
+  padding: '10px 20px',
+  '&:hover': {
+    backgroundColor: customProp ? "darkblue" : "darkgray",
+    color: "#lightgray",
+  },
+}));
+
+const LogoutCustomButton = styled(Button)(({ theme }) => ({
+  backgroundColor: theme ? "gray" : "blue",
+  border: "1px solid #212121",
+  borderRadius: "0px",
+  margin: "0 5px",
+  color: "white",
+  fontWeight: "bold",
+  padding: "10px 20px",
+  '&:hover': {
+    backgroundColor: "darkblue",
+    color: "#lightgray",
+  },
+}));
 
 function Home() {
   // const classes = useStyles();
@@ -181,22 +210,22 @@ function Home() {
                 src="/static/images/avatar/1.jpg"
               />
             </Link>
-            <Button
+            <LogoutCustomButton
               variant="contained"
               className="app__logout"
               onClick={() => auth.signOut()}
             >
               Logout
-            </Button>
+            </LogoutCustomButton>
           </div>
         ) : (
           <div className="app__loginContainer">
-            <Button variant="outlined" onClick={() => setOpenSignIn(true)}>
+            <CustomButton variant="outlined" onClick={() => setOpenSignIn(true)}>
               Sign In
-            </Button>
-            <Button variant="outlined" onClick={() => setOpenSignUp(true)}>
+            </CustomButton>
+            <CustomButton variant="outlined" onClick={() => setOpenSignUp(true)}>
               Sign Up
-            </Button>
+            </CustomButton>
           </div>
         )}
       </div>
@@ -207,11 +236,8 @@ function Home() {
           <h3 className="requirement__login">You need to log in to upload</h3>
         )}
         {posts.map(({ post, id }) => (
-          <AnimationOnScroll
+          <Box
             key={id}
-            animateIn="animate__bounceIn"
-            duration={0.5}
-            initiallyVisible
           >
             <Post
               postId={id}
@@ -221,7 +247,7 @@ function Home() {
               caption={post.caption}
               likeCounter={post.likeCounter}
             />
-          </AnimationOnScroll>
+          </Box>
         ))}
       </div>
     </div>

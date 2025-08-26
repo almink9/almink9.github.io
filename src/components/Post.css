@@ -5,14 +5,13 @@
   background-color: white;
   max-width: 700px;
   border: 1px solid lightgray;
-  border-radius: 2%;
+  border-radius: 2px;
   margin-bottom: 45px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
 }
 
 .post:hover {
   border: 1px solid rgb(153, 153, 153);
-  box-shadow: 1px 2px 9px #a17981;
 }
 
 .post__image {
